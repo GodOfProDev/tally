@@ -28,12 +28,15 @@ func NewRouter(store storage.Storage) *Router {
 	}
 }
 
-func (r Router) RegisterMiddlewares() {
-	r.app.Use(logger.New())
+func (r *Router) RegisterMiddlewares() {
+	r.app.Use(logger.New(logger.Config{
+		Format:   "${cyan}[${time}] ${white}| ${status} | ${latency} | ${white}${ip} | ${method} | ${white}${path}\n",
+		TimeZone: "UTC",
+	}))
 	r.app.Use(cors.New())
 }
 
-func (r Router) RegisterHandlers() {
+func (r *Router) RegisterHandlers() {
 	h := handlers.NewHandlers(r.store)
 
 	v1 := r.app.Group("/v1")
@@ -53,7 +56,7 @@ func (r Router) RegisterHandlers() {
 	v1.Patch("/guilds/:id/increment", h.HandleIncrement)
 }
 
-func (r Router) Listen(s *config.ServerConfig) error {
+func (r *Router) Listen(s *config.ServerConfig) error {
 	return r.app.Listen(fmt.Sprintf("%v:%v", s.Host, s.Port))
 }
 

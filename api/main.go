@@ -34,6 +34,7 @@ func main() {
 	}(mongo)
 
 	r := router.NewRouter(mongo)
+	r.RegisterMiddlewares()
 	r.RegisterHandlers()
 
 	err = r.Listen(serverConfig)
