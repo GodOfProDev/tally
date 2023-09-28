@@ -1,7 +1,7 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Go
+name: Api
 
 on:
   push:
@@ -24,11 +24,11 @@ jobs:
 
     - name: Run linting
       run: |
-       go fmt ./...
-       go vet ./...
+       go fmt github.com/godofprodev/tally/api
+       go vet github.com/godofprodev/tally/api
 
     - name: Build
-      run: go build -v ./...
+      run: go build github.com/godofprodev/tally/api -v ./...
 
     - name: Test
-      run: go test -v ./...
+      run: go test github.com/godofprodev/tally/api -v ./...
