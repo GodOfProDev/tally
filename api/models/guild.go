@@ -1,7 +1,7 @@
 package models
 
 type Guild struct {
-	ServerId     int `bson:"serverId" json:"serverId"`
+	GuildId      int `bson:"guildId" json:"guildId"`
 	ChannelId    int `bson:"channelId" json:"channelId"`
 	CurrentCount int `bson:"currentCount" json:"currentCount"`
 	HighestCount int `bson:"highestCount" json:"highestCount"`
@@ -17,7 +17,7 @@ func (g *Guild) Increment() {
 
 func NewGuild(p *CreateGuildParams) *Guild {
 	return &Guild{
-		ServerId:     p.ServerId,
+		GuildId:      p.GuildId,
 		ChannelId:    p.ChannelId,
 		CurrentCount: 0,
 		HighestCount: 0,

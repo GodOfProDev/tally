@@ -1,7 +1,7 @@
 package models
 
 type CreateGuildParams struct {
-	ServerId  int `json:"serverId"`
+	GuildId   int `json:"guildId"`
 	ChannelId int `json:"channelId"`
 }
 

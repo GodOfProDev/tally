@@ -57,7 +57,7 @@ func (m *MongoStore) GetGuilds() ([]*models.Guild, error) {
 }
 
 func (m *MongoStore) GetGuildById(id int) (*models.Guild, error) {
-	filter := bson.D{{"serverId", id}}
+	filter := bson.D{{"guildId", id}}
 
 	var result *models.Guild
 	err := m.GuildsCollection.FindOne(context.Background(), filter).Decode(&result)
@@ -117,7 +117,7 @@ func (m *MongoStore) CreateUser(user *models.User) error {
 }
 
 func (m *MongoStore) UpdateGuild(guild *models.Guild) error {
-	filter := bson.D{{"serverId", guild.ServerId}}
+	filter := bson.D{{"guildId", guild.GuildId}}
 	update := bson.D{{"$set", bson.D{
 		{"currentCount", guild.CurrentCount},
 		{"highestCount", guild.HighestCount},

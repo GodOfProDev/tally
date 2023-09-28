@@ -13,8 +13,8 @@ func (h Handlers) HandleCreateGuild(c *fiber.Ctx) error {
 		return responses.ErrParsingParams()
 	}
 
-	if params.ServerId == 0 {
-		return responses.ErrRequired("serverId")
+	if params.GuildId == 0 {
+		return responses.ErrRequired("guildId")
 	}
 	if params.ChannelId == 0 {
 		return responses.ErrRequired("channelId")
