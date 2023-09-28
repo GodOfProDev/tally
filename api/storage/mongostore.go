@@ -23,7 +23,7 @@ func NewMongoStore(cfg *config.DBConfig) *MongoStore {
 }
 
 func (m *MongoStore) Connect() error {
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(m.Cfg.Uri))
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(m.Cfg.Uri))
 	if err != nil {
 		return err
 	}
@@ -37,19 +37,19 @@ func (m *MongoStore) Connect() error {
 }
 
 func (m *MongoStore) Disconnect() error {
-	return m.Client.Disconnect(context.TODO())
+	return m.Client.Disconnect(context.Background())
 }
 
 func (m *MongoStore) GetGuilds() ([]*models.Guild, error) {
 	var query bson.M
 
-	cursor, err := m.GuildsCollection.Find(context.TODO(), query)
+	cursor, err := m.GuildsCollection.Find(context.Background(), query)
 	if err != nil {
 		return nil, err
 	}
 
 	var results []*models.Guild
-	if err = cursor.All(context.TODO(), &results); err != nil {
+	if err = cursor.All(context.Background(), &results); err != nil {
 		return nil, err
 	}
 
@@ -60,7 +60,7 @@ func (m *MongoStore) GetGuildById(id int) (*models.Guild, error) {
 	filter := bson.D{{"serverId", id}}
 
 	var result *models.Guild
-	err := m.GuildsCollection.FindOne(context.TODO(), filter).Decode(&result)
+	err := m.GuildsCollection.FindOne(context.Background(), filter).Decode(&result)
 
 	if err != nil {
 		return nil, err
@@ -72,13 +72,13 @@ func (m *MongoStore) GetGuildById(id int) (*models.Guild, error) {
 func (m *MongoStore) GetUsers() ([]*models.User, error) {
 	var query bson.M
 
-	cursor, err := m.UsersCollection.Find(context.TODO(), query)
+	cursor, err := m.UsersCollection.Find(context.Background(), query)
 	if err != nil {
 		return nil, err
 	}
 
 	var results []*models.User
-	if err = cursor.All(context.TODO(), &results); err != nil {
+	if err = cursor.All(context.Background(), &results); err != nil {
 		return nil, err
 	}
 
@@ -89,7 +89,7 @@ func (m *MongoStore) GetUserById(id int) (*models.User, error) {
 	filter := bson.D{{"userId", id}}
 
 	var result *models.User
-	err := m.UsersCollection.FindOne(context.TODO(), filter).Decode(&result)
+	err := m.UsersCollection.FindOne(context.Background(), filter).Decode(&result)
 
 	if err != nil {
 		return nil, err
@@ -99,7 +99,7 @@ func (m *MongoStore) GetUserById(id int) (*models.User, error) {
 }
 
 func (m *MongoStore) CreateGuild(guild *models.Guild) error {
-	_, err := m.GuildsCollection.InsertOne(context.TODO(), guild)
+	_, err := m.GuildsCollection.InsertOne(context.Background(), guild)
 	if err != nil {
 		return err
 	}
@@ -108,7 +108,7 @@ func (m *MongoStore) CreateGuild(guild *models.Guild) error {
 }
 
 func (m *MongoStore) CreateUser(user *models.User) error {
-	_, err := m.UsersCollection.InsertOne(context.TODO(), user)
+	_, err := m.UsersCollection.InsertOne(context.Background(), user)
 	if err != nil {
 		return err
 	}
@@ -124,7 +124,7 @@ func (m *MongoStore) UpdateGuild(guild *models.Guild) error {
 		{"channelId", guild.ChannelId},
 	}}}
 
-	_, err := m.GuildsCollection.UpdateOne(context.TODO(), filter, update)
+	_, err := m.GuildsCollection.UpdateOne(context.Background(), filter, update)
 	if err != nil {
 		return err
 	}
@@ -138,7 +138,7 @@ func (m *MongoStore) UpdateUser(user *models.User) error {
 		{"totalCounts", user.TotalCounts},
 	}}}
 
-	_, err := m.UsersCollection.UpdateOne(context.TODO(), filter, update)
+	_, err := m.UsersCollection.UpdateOne(context.Background(), filter, update)
 	if err != nil {
 		return err
 	}
