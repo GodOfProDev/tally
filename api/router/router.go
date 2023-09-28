@@ -40,12 +40,15 @@ func (r Router) RegisterHandlers() {
 	v1.Get("/monitor", monitor.New())
 
 	v1.Get("/ping", h.HandlePing)
+
 	v1.Get("/guilds", h.HandleGetGuilds)
 	v1.Get("/guilds/:id", h.HandleGetGuild)
+
 	v1.Get("/users/", h.HandleGetUsers)
 	v1.Get("/users/:id", h.HandleGetUser)
 
 	v1.Post("/guilds", h.HandleCreateGuild)
+	v1.Post("/users", h.HandleCreateUser)
 }
 
 func (r Router) Listen(s *config.ServerConfig) error {

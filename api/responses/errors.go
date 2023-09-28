@@ -27,10 +27,10 @@ func ErrInvalidId() APIError {
 	}
 }
 
-func ErrCreatingUser() APIError {
+func ErrCreating(a string) APIError {
 	return APIError{
 		Status: fiber.StatusInternalServerError,
-		Msg:    "there was an issue creating the user",
+		Msg:    fmt.Sprintf("there was an issue creating the %v", a),
 	}
 }
 

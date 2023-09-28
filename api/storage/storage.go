@@ -2,7 +2,6 @@ package storage
 
 import (
 	"github.com/godofprodev/tally/api/models"
-	"os/user"
 )
 
 type Storage interface {
@@ -15,5 +14,5 @@ type Storage interface {
 	GetUserById(id int) (*models.User, error)
 
 	CreateGuild(guild *models.Guild) error
-	CreateUser(user user.User) error
+	CreateUser(user *models.User) error
 }

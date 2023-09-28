@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"os/user"
 )
 
 type MongoStore struct {
@@ -108,7 +107,7 @@ func (m *MongoStore) CreateGuild(guild *models.Guild) error {
 	return nil
 }
 
-func (m *MongoStore) CreateUser(user user.User) error {
+func (m *MongoStore) CreateUser(user *models.User) error {
 	_, err := m.UsersCollection.InsertOne(context.TODO(), user)
 	if err != nil {
 		return err

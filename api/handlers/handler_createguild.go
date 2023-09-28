@@ -24,7 +24,7 @@ func (h Handlers) HandleCreateGuild(c *fiber.Ctx) error {
 
 	err := h.store.CreateGuild(guild)
 	if err != nil {
-		return responses.ErrCreatingUser()
+		return responses.ErrCreating("guild")
 	}
 
 	return responses.SuccessCreated(guild)
