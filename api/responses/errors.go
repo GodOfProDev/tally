@@ -34,10 +34,10 @@ func ErrCreating(a string) APIError {
 	}
 }
 
-func ErrGetting(a string) APIError {
+func ErrNotFound(a string) APIError {
 	return APIError{
 		Status: fiber.StatusNotFound,
-		Msg:    fmt.Sprintf("there was an issue getting the %v", a),
+		Msg:    fmt.Sprintf("%v not found", a),
 	}
 }
 

@@ -13,7 +13,7 @@ func (h Handlers) HandleGetGuild(c *fiber.Ctx) error {
 
 	guild, err := h.store.GetGuildById(id)
 	if err != nil {
-		return responses.ErrGetting("guild")
+		return responses.ErrNotFound("guild")
 	}
 
 	return responses.SuccessGotten(guild)

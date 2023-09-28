@@ -8,7 +8,7 @@ import (
 func (h Handlers) HandleGetUsers(c *fiber.Ctx) error {
 	users, err := h.store.GetUsers()
 	if err != nil {
-		return responses.ErrGetting("users")
+		return responses.ErrNotFound("users")
 	}
 
 	return responses.SuccessGotten(users)

@@ -13,7 +13,7 @@ func (h Handlers) HandleGetUser(c *fiber.Ctx) error {
 
 	user, err := h.store.GetUserById(id)
 	if err != nil {
-		return responses.ErrGetting("user")
+		return responses.ErrNotFound("user")
 	}
 
 	return responses.SuccessGotten(user)

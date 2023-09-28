@@ -14,7 +14,7 @@ func (h Handlers) HandleIncrement(c *fiber.Ctx) error {
 
 	guild, err := h.store.GetGuildById(id)
 	if err != nil {
-		return responses.ErrGetting("guild")
+		return responses.ErrNotFound("guild")
 	}
 
 	params := new(models.IncrementGuildParams)
@@ -29,7 +29,7 @@ func (h Handlers) HandleIncrement(c *fiber.Ctx) error {
 
 	user, err := h.store.GetUserById(params.UserId)
 	if err != nil {
-		return responses.ErrGetting("user")
+		return responses.ErrNotFound("user")
 	}
 
 	guild.Increment()
