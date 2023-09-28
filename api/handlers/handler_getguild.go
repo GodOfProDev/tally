@@ -11,10 +11,10 @@ func (h Handlers) HandleGetGuild(c *fiber.Ctx) error {
 		return responses.ErrInvalidId()
 	}
 
-	guilds, err := h.store.GetGuildById(id)
+	guild, err := h.store.GetGuildById(id)
 	if err != nil {
 		return responses.ErrGetting("guild")
 	}
 
-	return responses.SuccessGotten(guilds)
+	return responses.SuccessGotten(guild)
 }
