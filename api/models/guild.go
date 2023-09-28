@@ -1,10 +1,10 @@
 package models
 
 type Guild struct {
-	ServerId     int `bson:"serverId"`
-	ChannelId    int `bson:"channelId"`
-	CurrentCount int `bson:"currentCount"`
-	HighestCount int `bson:"highestCount"`
+	ServerId     int `bson:"serverId" json:"serverId"`
+	ChannelId    int `bson:"channelId" json:"channelId"`
+	CurrentCount int `bson:"currentCount" json:"currentCount"`
+	HighestCount int `bson:"highestCount" json:"highestCount"`
 }
 
 func NewGuild(p *CreateGuildParams) *Guild {
