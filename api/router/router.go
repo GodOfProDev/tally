@@ -43,6 +43,7 @@ func (r Router) RegisterHandlers() {
 	v1.Get("/guilds", h.HandleGetGuilds)
 	v1.Get("/guilds/:id", h.HandleGetGuild)
 	v1.Get("/users/", h.HandleGetUsers)
+	v1.Get("/users/:id", h.HandleGetUser)
 
 	v1.Post("/guilds", h.HandleCreateGuild)
 }
