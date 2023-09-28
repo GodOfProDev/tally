@@ -1,6 +1,9 @@
-package main
+package responses
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"github.com/gofiber/fiber/v2"
+)
 
 type APISuccessData struct {
 	Status int `json:"-"`
@@ -19,4 +22,11 @@ func (e APISuccessData) Error() string {
 
 func (e APISuccessResponse) Error() string {
 	return e.Msg
+}
+
+func SuccessCreated(a any) APISuccessData {
+	return APISuccessData{
+		Status: fiber.StatusCreated,
+		Data:   a,
+	}
 }
