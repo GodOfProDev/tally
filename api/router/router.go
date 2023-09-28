@@ -49,6 +49,8 @@ func (r Router) RegisterHandlers() {
 
 	v1.Post("/guilds", h.HandleCreateGuild)
 	v1.Post("/users", h.HandleCreateUser)
+
+	v1.Patch("/guilds/:id/increment", h.HandleIncrement)
 }
 
 func (r Router) Listen(s *config.ServerConfig) error {

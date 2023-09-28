@@ -41,6 +41,13 @@ func ErrGetting(a string) APIError {
 	}
 }
 
+func ErrUpdating(a string) APIError {
+	return APIError{
+		Status: fiber.StatusNotFound,
+		Msg:    fmt.Sprintf("there was an issue updating the %v", a),
+	}
+}
+
 func ErrParsingParams() APIError {
 	return APIError{
 		Status: fiber.StatusBadRequest,

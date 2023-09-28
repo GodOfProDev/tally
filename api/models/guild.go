@@ -7,6 +7,14 @@ type Guild struct {
 	HighestCount int `bson:"highestCount" json:"highestCount"`
 }
 
+func (g *Guild) Increment() {
+	g.CurrentCount++
+
+	if g.CurrentCount > g.HighestCount {
+		g.HighestCount = g.CurrentCount
+	}
+}
+
 func NewGuild(p *CreateGuildParams) *Guild {
 	return &Guild{
 		ServerId:     p.ServerId,

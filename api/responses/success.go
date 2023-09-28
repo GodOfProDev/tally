@@ -37,3 +37,10 @@ func SuccessGotten(a any) APISuccessData {
 		Data:   a,
 	}
 }
+
+func SuccessMessage(a string) APISuccessResponse {
+	return APISuccessResponse{
+		Status: fiber.StatusOK,
+		Msg:    a,
+	}
+}

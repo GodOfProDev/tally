@@ -5,6 +5,10 @@ type User struct {
 	TotalCounts int `bson:"totalCounts" json:"totalCounts"`
 }
 
+func (u *User) Increment() {
+	u.TotalCounts++
+}
+
 func NewUser(p *CreateUserParams) *User {
 	return &User{
 		UserId:      p.UserId,

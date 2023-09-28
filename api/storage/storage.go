@@ -15,4 +15,7 @@ type Storage interface {
 
 	CreateGuild(guild *models.Guild) error
 	CreateUser(user *models.User) error
+
+	UpdateGuild(guild *models.Guild) error
+	UpdateUser(user *models.User) error
 }

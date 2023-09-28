@@ -6,5 +6,9 @@ type CreateGuildParams struct {
 }
 
 type CreateUserParams struct {
-	UserId int `json:"serverId"`
+	UserId int `json:"userId"`
+}
+
+type IncrementGuildParams struct {
+	UserId int `json:"userId"`
 }

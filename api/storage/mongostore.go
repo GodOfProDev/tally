@@ -89,7 +89,7 @@ func (m *MongoStore) GetUserById(id int) (*models.User, error) {
 	filter := bson.D{{"userId", id}}
 
 	var result *models.User
-	err := m.GuildsCollection.FindOne(context.TODO(), filter).Decode(&result)
+	err := m.UsersCollection.FindOne(context.TODO(), filter).Decode(&result)
 
 	if err != nil {
 		return nil, err
@@ -109,6 +109,36 @@ func (m *MongoStore) CreateGuild(guild *models.Guild) error {
 
 func (m *MongoStore) CreateUser(user *models.User) error {
 	_, err := m.UsersCollection.InsertOne(context.TODO(), user)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *MongoStore) UpdateGuild(guild *models.Guild) error {
+	filter := bson.D{{"serverId", guild.ServerId}}
+	update := bson.D{{"$set", bson.D{
+		{"currentCount", guild.CurrentCount},
+		{"highestCount", guild.HighestCount},
+		{"channelId", guild.ChannelId},
+	}}}
+
+	_, err := m.GuildsCollection.UpdateOne(context.TODO(), filter, update)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *MongoStore) UpdateUser(user *models.User) error {
+	filter := bson.D{{"userId", user.UserId}}
+	update := bson.D{{"$set", bson.D{
+		{"totalCounts", user.TotalCounts},
+	}}}
+
+	_, err := m.UsersCollection.UpdateOne(context.TODO(), filter, update)
 	if err != nil {
 		return err
 	}
