@@ -50,7 +50,7 @@ func (m *MongoStore) GetGuilds() ([]*models.Guild, error) {
 	}
 
 	var results []*models.Guild
-	if err = cursor.All(context.TODO(), results); err != nil {
+	if err = cursor.All(context.TODO(), &results); err != nil {
 		return nil, err
 	}
 
@@ -61,7 +61,7 @@ func (m *MongoStore) GetGuildById(id int) (*models.Guild, error) {
 	filter := bson.D{{"serverId", id}}
 
 	var result *models.Guild
-	err := m.GuildsCollection.FindOne(context.TODO(), filter).Decode(result)
+	err := m.GuildsCollection.FindOne(context.TODO(), filter).Decode(&result)
 
 	if err != nil {
 		return nil, err
@@ -79,7 +79,7 @@ func (m *MongoStore) GetUsers() ([]*models.User, error) {
 	}
 
 	var results []*models.User
-	if err = cursor.All(context.TODO(), results); err != nil {
+	if err = cursor.All(context.TODO(), &results); err != nil {
 		return nil, err
 	}
 
@@ -90,7 +90,7 @@ func (m *MongoStore) GetUserById(id int) (*models.User, error) {
 	filter := bson.D{{"userId", id}}
 
 	var result *models.User
-	err := m.GuildsCollection.FindOne(context.TODO(), filter).Decode(result)
+	err := m.GuildsCollection.FindOne(context.TODO(), filter).Decode(&result)
 
 	if err != nil {
 		return nil, err
