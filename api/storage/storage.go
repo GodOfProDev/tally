@@ -6,10 +6,13 @@ import (
 )
 
 type Storage interface {
+	Connect() error
+	Disconnect() error
+
 	GetGuilds() ([]*models.Guild, error)
-	GetGuildById() (*models.Guild, error)
+	GetGuildById(id int) (*models.Guild, error)
 	GetUsers() ([]*models.User, error)
-	GetUserById() (*models.User, error)
+	GetUserById(id int) (*models.User, error)
 
 	CreateGuild(guild *models.Guild) error
 	CreateUser(user user.User) error
