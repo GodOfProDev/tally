@@ -40,6 +40,7 @@ func (r Router) RegisterHandlers() {
 	v1.Get("/monitor", monitor.New())
 
 	v1.Get("/ping", h.HandlePing)
+	v1.Get("/guilds", h.HandleGetGuilds)
 	v1.Post("/guilds", h.HandleCreateGuild)
 }
 

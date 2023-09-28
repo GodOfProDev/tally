@@ -30,3 +30,10 @@ func SuccessCreated(a any) APISuccessData {
 		Data:   a,
 	}
 }
+
+func SuccessGotten(a any) APISuccessData {
+	return APISuccessData{
+		Status: fiber.StatusOK,
+		Data:   a,
+	}
+}
