@@ -26,6 +26,13 @@ func main() {
 		log.Fatal(err)
 	}
 
+	defer func(mongo *storage.MongoStore) {
+		err := mongo.Disconnect()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}(mongo)
+
 	r := router.NewRouter(mongo)
 	r.RegisterHandlers()
 
