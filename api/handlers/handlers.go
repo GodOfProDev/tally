@@ -7,10 +7,10 @@ import (
 )
 
 type Handlers struct {
-	store *storage.MongoStore
+	store storage.Storage
 }
 
-func NewHandlers(store *storage.MongoStore) *Handlers {
+func NewHandlers(store storage.Storage) *Handlers {
 	return &Handlers{store: store}
 }
 

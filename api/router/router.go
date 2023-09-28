@@ -14,10 +14,10 @@ import (
 
 type Router struct {
 	app   *fiber.App
-	store *storage.MongoStore
+	store storage.Storage
 }
 
-func NewRouter(store *storage.MongoStore) *Router {
+func NewRouter(store storage.Storage) *Router {
 	app := fiber.New(fiber.Config{
 		ErrorHandler: customErrorHandler,
 	})
