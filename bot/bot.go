@@ -33,6 +33,10 @@ func (b *Bot) Connect() error {
 	return nil
 }
 
+func (b *Bot) Disconnect() error {
+	return b.app.Close()
+}
+
 func (b *Bot) RegisterHandlers() {
 
 }

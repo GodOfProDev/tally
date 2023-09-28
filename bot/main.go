@@ -4,6 +4,8 @@ import (
 	"github.com/godofprodev/tally/bot/config"
 	"github.com/joho/godotenv"
 	"log"
+	"os"
+	"os/signal"
 )
 
 func main() {
@@ -26,4 +28,13 @@ func main() {
 	if err != nil {
 		log.Fatal("there was an issue connecting to the bot: ", err)
 	}
+
+	defer bot.Disconnect()
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt)
+	log.Println("Press Ctrl+C to exit")
+	<-stop
+
+	log.Println("Gracefully shutting down.")
 }
