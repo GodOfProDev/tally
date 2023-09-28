@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/godofprodev/tally/api/config"
-	"github.com/godofprodev/tally/api/router"
 	"github.com/godofprodev/tally/api/storage"
 	"github.com/joho/godotenv"
 	"log"
@@ -33,7 +32,7 @@ func main() {
 		}
 	}(mongo)
 
-	r := router.NewRouter(mongo)
+	r := NewRouter(mongo)
 	r.RegisterMiddlewares()
 	r.RegisterHandlers()
 
