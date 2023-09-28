@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/godofprodev/tally/api/config"
-	router2 "github.com/godofprodev/tally/api/router"
+	"github.com/godofprodev/tally/api/router"
 	"github.com/godofprodev/tally/api/storage"
 	"github.com/joho/godotenv"
 	"log"
@@ -26,10 +26,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	router := router2.NewRouter(mongo)
-	router.RegisterHandlers()
+	r := router.NewRouter(mongo)
+	r.RegisterHandlers()
 
-	err = router.Listen(serverConfig)
+	err = r.Listen(serverConfig)
 	if err != nil {
 		log.Fatal(err)
 	}
