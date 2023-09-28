@@ -20,6 +20,13 @@ func ErrRequired(req string) APIError {
 	}
 }
 
+func ErrInvalidId() APIError {
+	return APIError{
+		Status: fiber.StatusBadRequest,
+		Msg:    "invalid id",
+	}
+}
+
 func ErrCreatingUser() APIError {
 	return APIError{
 		Status: fiber.StatusInternalServerError,
@@ -27,17 +34,10 @@ func ErrCreatingUser() APIError {
 	}
 }
 
-func ErrGettingUser() APIError {
+func ErrGetting(a string) APIError {
 	return APIError{
 		Status: fiber.StatusNotFound,
-		Msg:    "there was an issue getting the user",
-	}
-}
-
-func ErrGettingUsers() APIError {
-	return APIError{
-		Status: fiber.StatusNotFound,
-		Msg:    "there was an issue getting the users",
+		Msg:    fmt.Sprintf("there was an issue getting the %v", a),
 	}
 }
 

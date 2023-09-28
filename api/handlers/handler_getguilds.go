@@ -8,7 +8,7 @@ import (
 func (h Handlers) HandleGetGuilds(c *fiber.Ctx) error {
 	guilds, err := h.store.GetGuilds()
 	if err != nil {
-		return responses.ErrGettingUsers()
+		return responses.ErrGetting("guilds")
 	}
 
 	return responses.SuccessGotten(guilds)
