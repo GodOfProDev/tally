@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"github.com/godofprodev/tally/api/config"
+	router2 "github.com/godofprodev/tally/api/router"
 	"github.com/godofprodev/tally/api/storage"
 	"github.com/joho/godotenv"
 	"log"
@@ -14,14 +14,23 @@ func main() {
 		log.Fatal(err)
 	}
 
-	cfg := config.NewDBConfig()
+	dbConfig := config.NewDBConfig()
+	serverConfig, err := config.NewServerConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	mongo := storage.NewMongoStore(cfg)
-
+	mongo := storage.NewMongoStore(dbConfig)
 	err = mongo.Connect()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println(mongo.Client)
+	router := router2.NewRouter(mongo)
+	router.RegisterHandlers()
+
+	err = router.Listen(serverConfig)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
