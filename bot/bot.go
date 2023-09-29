@@ -6,15 +6,16 @@ import (
 )
 
 type Bot struct {
-	app *discordgo.Session
+	app    *discordgo.Session
+	config *config.BotConfig
 }
 
-func NewBot() *Bot {
-	return &Bot{}
+func NewBot(cfg *config.BotConfig) *Bot {
+	return &Bot{config: cfg}
 }
 
-func (b *Bot) Init(cfg config.BotConfig) error {
-	app, err := discordgo.New("Bot " + cfg.Token)
+func (b *Bot) Init() error {
+	app, err := discordgo.New("Bot " + b.config.Token)
 	if err != nil {
 		return err
 	}

@@ -7,8 +7,8 @@ type BotConfig struct {
 	GuildId string
 }
 
-func NewBotConfig() BotConfig {
-	return BotConfig{
+func NewBotConfig() *BotConfig {
+	return &BotConfig{
 		Token:   os.Getenv("BOT_TOKEN"),
 		GuildId: os.Getenv("GUILD_ID"),
 	}

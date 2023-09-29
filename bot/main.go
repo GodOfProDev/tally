@@ -16,8 +16,8 @@ func main() {
 
 	cfg := config.NewBotConfig()
 
-	bot := NewBot()
-	err = bot.Init(cfg)
+	bot := NewBot(cfg)
+	err = bot.Init()
 	if err != nil {
 		log.Fatal(err)
 	}
