@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/bwmarrin/discordgo"
+	"github.com/godofprodev/tally/bot/commands"
 	"github.com/godofprodev/tally/bot/config"
 	"github.com/godofprodev/tally/bot/handlers"
-	"log"
 )
 
 type Bot struct {
@@ -47,26 +47,13 @@ func (b *Bot) RegisterHandlers() {
 }
 
 func (b *Bot) RegisterCommands() {
-	command := discordgo.ApplicationCommand{
-		Name:        "ping",
-		Description: "Responds with pong",
-		GuildID:     b.config.GuildId,
-	}
 
-	_, err := b.app.ApplicationCommandCreate(b.app.State.User.ID, b.config.GuildId, &command)
-	if err != nil {
-		log.Panicf("Cannot create '%v' command: %v", command.Name, err)
-	}
+	cmds := commands.NewCommands(b.app, b.config)
+
+	cmds.RegisterPingCommand()
 
 	commandHandlers := map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-		"ping": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
-			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
-				Type: discordgo.InteractionResponseChannelMessageWithSource,
-				Data: &discordgo.InteractionResponseData{
-					Content: "Hey there! Congratulations, you just executed your first slash command",
-				},
-			})
-		},
+		"ping": cmds.ExecutePingCommand,
 	}
 
 	b.app.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
