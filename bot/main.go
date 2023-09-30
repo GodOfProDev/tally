@@ -23,11 +23,12 @@ func main() {
 	}
 
 	bot.RegisterHandlers()
-
 	err = bot.Connect()
 	if err != nil {
 		log.Fatal("there was an issue connecting to the bot: ", err)
 	}
+
+	bot.RegisterCommands()
 
 	defer bot.Disconnect()
 
