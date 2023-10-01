@@ -51,9 +51,11 @@ func (b *Bot) RegisterCommands() {
 	cmds := commands.NewCommands(b.app, b.config)
 
 	cmds.RegisterPingCommand()
+	cmds.RegisterSetupCommand()
 
 	commandHandlers := map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-		"ping": cmds.ExecutePingCommand,
+		"ping":  cmds.ExecutePingCommand,
+		"setup": cmds.ExecuteSetupCommand,
 	}
 
 	b.app.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
