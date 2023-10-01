@@ -43,7 +43,6 @@ func (c *Commands) ExecuteSetupCommand(s *discordgo.Session, i *discordgo.Intera
 }
 
 func (c *Commands) RegisterSetupCommand() {
-
 	command := discordgo.ApplicationCommand{
 		Name:        "setup",
 		Description: "Setup the counting channel",
