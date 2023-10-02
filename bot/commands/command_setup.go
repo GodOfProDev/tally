@@ -2,7 +2,10 @@ package commands
 
 import (
 	"github.com/bwmarrin/discordgo"
+	"github.com/godofprodev/tally/bot/http"
+	"github.com/godofprodev/tally/bot/models"
 	"log"
+	"strconv"
 )
 
 func (c *Commands) ExecuteSetupCommand(s *discordgo.Session, i *discordgo.InteractionCreate) {
@@ -32,6 +35,18 @@ func (c *Commands) ExecuteSetupCommand(s *discordgo.Session, i *discordgo.Intera
 		})
 		return
 	}
+
+	gid, _ := strconv.Atoi(i.GuildID)
+	cid, _ := strconv.Atoi(option.ChannelValue(c.app).ID)
+
+	req := models.CreateGuildRequest{
+		GuildId:   gid,
+		ChannelId: cid,
+	}
+
+	client := http.NewClient()
+
+	client.PostRequest(req)
 
 	s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
