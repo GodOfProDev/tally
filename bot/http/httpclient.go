@@ -3,6 +3,9 @@ package http
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"github.com/godofprodev/tally/bot/models"
+	"io"
 	"net/http"
 )
 
@@ -30,4 +33,31 @@ func (c Client) PostRequest(data any) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+func (c Client) GetRequest(url string) *models.Guild {
+	resp, err := c.client.Get(url)
+	if err != nil {
+		// Handle the error.
+		fmt.Println(err)
+		return nil
+	}
+
+	// Close the response body when we're done with it.
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Error reading response:", err)
+		return nil
+	}
+
+	guild := models.Guild{}
+
+	err = json.Unmarshal(body, &guild)
+	if err != nil {
+		return nil
+	}
+
+	return &guild
 }

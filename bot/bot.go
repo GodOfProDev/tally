@@ -22,6 +22,8 @@ func (b *Bot) Init() error {
 		return err
 	}
 
+	app.Identify.Intents = discordgo.IntentsGuildMessages
+
 	b.app = app
 
 	return nil
@@ -44,6 +46,7 @@ func (b *Bot) RegisterHandlers() {
 	h := handlers.NewHandlers()
 
 	b.app.AddHandler(h.HandleReady)
+	b.app.AddHandler(h.HandleMessageCreate)
 }
 
 func (b *Bot) RegisterCommands() {
