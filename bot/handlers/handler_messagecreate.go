@@ -34,6 +34,10 @@ func (h Handlers) HandleMessageCreate(s *discordgo.Session, m *discordgo.Message
 	}
 
 	if (guild.CurrentCount + 1) != num {
+		err := s.ChannelMessageDelete(m.ChannelID, m.Message.ID)
+		if err != nil {
+			return
+		}
 		return
 	}
 
