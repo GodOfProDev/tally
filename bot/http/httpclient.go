@@ -61,3 +61,43 @@ func (c Client) GetRequest(url string) *models.Guild {
 
 	return &guild
 }
+
+func (c Client) PatchRequest(url string, userId string) {
+	patch := []map[string]interface{}{
+		{
+			"userId": userId,
+		},
+	}
+
+	// Marshal the JSON patch document
+	patchJSON, err := json.Marshal(patch)
+	if err != nil {
+		// Handle error
+		return
+	}
+
+	req, err := http.NewRequest("PATCH", url, bytes.NewReader(patchJSON))
+	if err != nil {
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return
+	}
+
+	defer resp.Body.Close()
+
+	// Check the response status code
+	if resp.StatusCode != http.StatusOK {
+		fmt.Println("Error:", resp.StatusCode)
+		return
+	}
+
+	// The resource has been updated successfully
+	fmt.Println("Resource updated successfully")
+}

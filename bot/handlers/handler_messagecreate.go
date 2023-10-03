@@ -3,7 +3,6 @@ package handlers
 import (
 	"github.com/bwmarrin/discordgo"
 	"github.com/godofprodev/tally/bot/http"
-	"log"
 	"strconv"
 	"time"
 )
@@ -25,12 +24,16 @@ func (h Handlers) HandleMessageCreate(s *discordgo.Session, m *discordgo.Message
 		return
 	}
 
-	_, err := strconv.Atoi(m.Message.Content)
+	num, err := strconv.Atoi(m.Message.Content)
 	if err != nil {
 		err := s.ChannelMessageDelete(m.ChannelID, m.Message.ID)
 		if err != nil {
 			return
 		}
+		return
+	}
+
+	if (guild.CurrentCount + 1) != num {
 		return
 	}
 
@@ -59,5 +62,5 @@ func (h Handlers) HandleMessageCreate(s *discordgo.Session, m *discordgo.Message
 		return
 	}
 
-	log.Print(m.Message.Content)
+	http.NewClient().PatchRequest("http://localhost:8080/v1/guilds/"+m.GuildID+"/increment", m.Author.ID)
 }
