@@ -5,6 +5,7 @@ import (
 	"github.com/godofprodev/tally/bot/http"
 	"log"
 	"strconv"
+	"time"
 )
 
 func (h Handlers) HandleMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
@@ -30,6 +31,31 @@ func (h Handlers) HandleMessageCreate(s *discordgo.Session, m *discordgo.Message
 		if err != nil {
 			return
 		}
+		return
+	}
+
+	avatar := m.Author.AvatarURL("")
+
+	embed := &discordgo.MessageEmbed{
+		Title:       "Current Count",
+		Description: m.Message.Content,
+		Footer: &discordgo.MessageEmbedFooter{
+			Text: time.Now().UTC().String(),
+		},
+		Color: 0x03fce3,
+		Author: &discordgo.MessageEmbedAuthor{
+			Name:    m.Author.Username,
+			IconURL: avatar,
+		},
+	}
+
+	_, err = s.ChannelMessageSendEmbed(m.ChannelID, embed)
+	if err != nil {
+		return
+	}
+
+	err = s.ChannelMessageDelete(m.ChannelID, m.Message.ID)
+	if err != nil {
 		return
 	}
 
